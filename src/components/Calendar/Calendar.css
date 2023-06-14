@@ -1,0 +1,16 @@
+.cell {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.calendar thead {
+    text-align: center;
+}
+
+.day {
+    font-size: 32px;
+    line-height: 47px;
+}
