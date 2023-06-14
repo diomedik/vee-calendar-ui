@@ -7,7 +7,7 @@ interface IProps {
     open: boolean;
     date: Dayjs;
     onCancel(): void;
-    onSumbit(): void;
+    onSumbit(tag: string): void;
 }
 
 export const EventModal = (props: IProps) => {
@@ -18,16 +18,15 @@ export const EventModal = (props: IProps) => {
     }
 
     const handleSumbit = () => {
-
+        props.onSumbit(tags[0].toUpperCase());
     }
 
-    console.log(tags)
     return (
         <Modal
             title="Event modal"
             open={props.open}
             onCancel={props.onCancel}
-            onOk={props.onSumbit}
+            onOk={handleSumbit}
         >
             {`${props.date}`}
             <EventsSelect onChange={handleChangeTags} />

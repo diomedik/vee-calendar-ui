@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tag, TagProps } from 'antd';
-import { CustomTagProps } from 'rc-select/lib/BaseSelect';
+import { Tag } from 'antd';
+import './EventTag.css';
 
 interface IProps {
     value: string;
@@ -17,7 +17,7 @@ export const EventTag = (props: IProps): JSX.Element => {
 
     return (
         <Tag
-            className={`tag ${props.value}`}
+            className={`tag ${props.value.toLowerCase()}`}
             onMouseDown={onPreventMouseDown}
             closable={props.closable}
             onClose={props.onClose}

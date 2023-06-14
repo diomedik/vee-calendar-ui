@@ -24,8 +24,6 @@ export const EventsSelect = (props: IProps) => {
         <EventTag {...tagProps} />
     )
 
-    console.log(selectedTag)
-
     return (
         <Select 
             mode="tags"
