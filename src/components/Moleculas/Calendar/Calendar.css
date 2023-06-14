@@ -6,11 +6,20 @@
     align-items: flex-start;
 }
 
+.table-header {
+    padding: 24px 48px;
+}
+
 .calendar thead {
     text-align: center;
+}
+
+.calendar td, th {
+    border: 1px solid #E6E6E6;
 }
 
 .day {
     font-size: 32px;
     line-height: 47px;
+    padding-bottom: 28px;
 }

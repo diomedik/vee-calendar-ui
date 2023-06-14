@@ -1,24 +1,26 @@
 import React from 'react';
 import { Select, Tag } from 'antd';
 import './EventsSelect.css';
-
-const options = [ {value: 'facebook'}, {value: 'instagram'} ];
-
+import { CustomTagProps } from 'rc-select/lib/BaseSelect';
+import "./EventsSelect.css";
 interface IProps {
     onChange(tags: string[]): void;
 }
 
-interface ITagProps {
-    label: string;
-    value: string;
-    closable: boolean;
-    onClose(event: any): void;
-    disabled: boolean;
-}
+const options = [ {value: 'facebook'}, {value: 'instagram'} ];
 
 export const EventsSelect = (props: IProps) => {
-    const tagRender = (tagProps: ITagProps): React.ReactElement => {
-        const { label, value, disabled, closable, onClose } = tagProps;
+    const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
+
+    const handleChange = (value: string[], options): void => {
+        if (options?.length === 0 || options?.length === 1) {
+            setSelectedTag(value)
+            props.onChange(value);
+        }
+
+    }
+    const tagRender = (tagProps: CustomTagProps): React.ReactElement => {
+        const { label, value, closable, onClose } = tagProps;
 
         const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
             event.preventDefault();
@@ -36,14 +38,18 @@ export const EventsSelect = (props: IProps) => {
                 {label}
             </Tag>
         );
-    }
+    }  
+
+    console.log(selectedTag)
 
     return (
         <Select 
-            mode="multiple"
+            mode="tags"
+            className="events-select"
+            value={selectedTag}
             options={options}
             tagRender={tagRender}
-            onChange={props.onChange}
+            onChange={handleChange}
         />
     )
 }

@@ -44,3 +44,34 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Tech stack
+ - Antd - Library which provides a lot of UI components, which very scalable and flexible. 
+ - Dayjs - A better way to work with Date in JS. This library provides a lot of methods to work with Date and also lighweight.
+ - Apollo - 
+ - RRule - a library to work with iCalendar standard
+
+ ### Folder structure 
+  - Atomic design structure folder
+  This structure folder design provides a lot of oportunities in future to scale and update application,
+  we shouldn't waste a lot of time to find some component, because we know how our components stored in application
+  All components store in folders, for now - Atoms and Moleculas, but in future if application will grow
+  we can easily add new folders Organisms, Templates and Pages.
+
+### Libraries
+ --- Antd 
+ This library provides ready to use UI components, which we can easily modify and make apply styles which we needed.
+ There are a lot of Props in any components, which give us a full control over components
+
+ --- Dayjs
+ This is a better alternative to work with Dates in JS. This library very lightweight, around 2KB. Easy to integrate in 
+ any project and component. Also this library works perfect with Antd, because of a lot of components use Dayjs format
+ under the hood.
+
+ --- Apollo
+
+ --- RRule
+ RRule.js is a valuable tool when working with scheduling and event management systems that involve recurring patterns. It provides a convenient and reliable way to handle various types of recurring events, such as daily, weekly, monthly, or yearly occurrences, as well as more complex patterns. RRule.js simplifies the implementation of recurrence rules, saving development time and ensuring accurate and consistent scheduling functionality.
+
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Dayjs } from 'dayjs';
 import { Modal, Select } from "antd"
-import { EventsSelect } from "../EventsSelect";
+import { EventsSelect } from "../../Atoms/EventsSelect";
 
 interface IProps {
     open: boolean;

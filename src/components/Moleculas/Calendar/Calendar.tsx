@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import dayLocaleData from 'dayjs/plugin/localeData';
 import { Calendar as CalendarUI, Row, Col, Select as SelectUI } from "antd";
-import { SelectWithArrows } from '../SelectWithArrows';
-import { EventModal } from '../EventModal';
+import { SelectWithArrows } from '../../Atoms/SelectWithArrows';
+import { EventModal } from '../../Moleculas/EventModal';
 import './Calendar.css'
 
 dayjs.extend(dayLocaleData);
@@ -55,9 +55,10 @@ export const Calendar = () => {
 
         return (
             <div>
-                <Row gutter={6} justify="center">
+                <Row className="table-header" justify="center">
                     <Col>
-                        <SelectWithArrows 
+                        <SelectWithArrows
+                            size="large" 
                             value={month}
                             onChange={(passedValue) => {
                                 const now = value.clone().month(passedValue);
@@ -72,6 +73,7 @@ export const Calendar = () => {
                     </Col>
                     <Col>
                         <SelectWithArrows 
+                            size="large"
                             value={value.clone().year()}
                             defaultValue={current.year()}
                             onChange={(passedValue) => {
