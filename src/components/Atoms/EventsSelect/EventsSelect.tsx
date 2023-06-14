@@ -3,6 +3,7 @@ import { Select, Tag } from 'antd';
 import './EventsSelect.css';
 import { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import "./EventsSelect.css";
+import { EventTag } from '../EventTag/EventTag';
 interface IProps {
     onChange(tags: string[]): void;
 }
@@ -19,26 +20,9 @@ export const EventsSelect = (props: IProps) => {
         }
 
     }
-    const tagRender = (tagProps: CustomTagProps): React.ReactElement => {
-        const { label, value, closable, onClose } = tagProps;
-
-        const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
-            event.preventDefault();
-            event.stopPropagation();
-        };
-
-        return (
-            <Tag
-                className={`tag ${value}`}
-                onMouseDown={onPreventMouseDown}
-                closable={closable}
-                onClose={onClose}
-                style={{ marginRight: 3 }}
-            >
-                {label}
-            </Tag>
-        );
-    }  
+    const tagRender = (tagProps: CustomTagProps): React.ReactElement => (
+        <EventTag {...tagProps} />
+    )
 
     console.log(selectedTag)
 

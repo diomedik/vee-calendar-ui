@@ -6,10 +6,16 @@ import { Calendar as CalendarUI, Row, Col, Select as SelectUI } from "antd";
 import { SelectWithArrows } from '../../Atoms/SelectWithArrows';
 import { EventModal } from '../../Moleculas/EventModal';
 import './Calendar.css'
+import { EventTag } from '../../Atoms/EventTag/EventTag';
 
 dayjs.extend(dayLocaleData);
 
+type Tag = {
+    value: string;
+}
+
 export const Calendar = () => {
+    const tags = [{value: 'facebook'}]
     const [showModal, setShowModal] = React.useState(false);
     const [selectedDate, setSelectedDate] = React.useState<Dayjs>(dayjs);
     const currentYear = dayjs().clone().year();
@@ -27,7 +33,11 @@ export const Calendar = () => {
         return (
             <div className="cell">
                 <div className="day">{date.date()}</div>
-                <div>Tags</div>
+                <div>{tags.map((tag: Tag) => {
+                    return (
+                        <EventTag value={tag.value} label={tag.value} />
+                    )
+                })}</div>
             </div>
         )
     }
