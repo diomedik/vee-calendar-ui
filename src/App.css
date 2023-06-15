@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Ploni Yad v2 AAA';
+  src: url(./fonts/50fb51d1249d3d70509765762127faa0.woff) format('woff')
+}
+
 .App {
   text-align: center;
 }
