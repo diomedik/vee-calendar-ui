@@ -23,3 +23,7 @@
     line-height: 47px;
     padding-bottom: 28px;
 }
+
+.tags {
+    display: flex;
+}

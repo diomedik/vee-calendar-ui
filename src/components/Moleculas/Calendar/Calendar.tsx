@@ -2,16 +2,15 @@ import React from 'react';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import dayLocaleData from 'dayjs/plugin/localeData';
-import { datetime, RRule, RRuleSet, rrulestr } from 'rrule'
-import { Calendar as CalendarUI, Row, Col, Select as SelectUI } from "antd";
-import { useEvents } from '../../../hooks/useEvents';
+import { RRule } from 'rrule'
+import { Calendar as CalendarUI, Row, Col} from 'antd';
 import { SelectWithArrows } from '../../Atoms/SelectWithArrows';
 import { EventModal } from '../../Moleculas/EventModal';
-import './Calendar.css'
 import { EventTag } from '../../Atoms/EventTag/EventTag';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_EVENTS } from '../../../graphql/event/event.query';
 import { CREATE_EVENT } from '../../../graphql/event/event.mutate';
+import './Calendar.css'
 
 dayjs.extend(dayLocaleData);
 
@@ -20,17 +19,24 @@ type Tag = {
     startDate: string;
     id: string;
 }
-const date = new Date('2023-06-14').toISOString();
-const end = new Date('2023-06-15').toISOString();
+
 export const Calendar = () => {
-    const tags = [{value: 'facebook'}];
-    const [createEvent] = useMutation(CREATE_EVENT);
+    const [currentDate, setCurrentDate] = React.useState<Dayjs>(dayjs);
+    const [createEvent] = useMutation(CREATE_EVENT, {
+        refetchQueries: [GET_EVENTS]
+    });
     const [showModal, setShowModal] = React.useState(false);
     const [selectedDate, setSelectedDate] = React.useState<Dayjs>(dayjs);
     const currentYear = dayjs().clone().year();
-    const {data, error, loading} = useQuery(GET_EVENTS, {variables: {endDate: end, startDate: date}});
-    console.log(data)
-    const handleCellClick = (date:  Dayjs, info?: any): void => {
+    const beginOfMonth = new Date(currentDate?.year(), currentDate?.month(), 1);
+    const endOfMonth = new Date(currentDate?.year(), currentDate?.month() + 1, 0);
+    const {data, refetch} = useQuery(GET_EVENTS, {variables: {endDate: endOfMonth, startDate: beginOfMonth}});
+
+    React.useEffect(() => {
+        refetch()
+    }, [currentDate])
+
+    const handleCellClick = (date:  Dayjs): void => {
         setSelectedDate(date);
         setShowModal(true);
     };
@@ -50,14 +56,18 @@ export const Calendar = () => {
     }
 
     const fullCellRender = (date: Dayjs): JSX.Element => {
+        const tagsToRender = data?.events?.items.filter((tag: Tag) => 
+            new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()
+        );
+
         return (
             <div className="cell">
                 <div className="day">{date.date()}</div>
-                <div>
-                    {!loading && data?.events?.items.map((tag: Tag, index: number) => {
+                <div className="tags">
+                    {tagsToRender?.map((tag: Tag, index: number) => {
                         if(new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()) {
                             return (
-                                <EventTag key={index} value={tag.type} label={tag.type} />
+                                <EventTag onlyIcon={tagsToRender.length > 1} key={index} value={tag.type} label={tag.type} />
                             )
                         }
                     })}
@@ -71,6 +81,7 @@ export const Calendar = () => {
         const localeData = value.localeData();
         const month = value.month();
         const startYear = currentYear - 10;
+
     
         const monthOptions = Array.from({length: 12}, (_, index) => ({
             label: localeData.months(current.month(index)),
@@ -131,6 +142,7 @@ export const Calendar = () => {
                 className="calendar"
                 headerRender={renderHeader} 
                 fullCellRender={fullCellRender}
+                onChange={(value) => setCurrentDate(value.clone())}
                 onSelect={(date, { source }) => {
                     if (source === 'date') {
                       handleCellClick(date)

@@ -1,7 +1,8 @@
 import React from 'react';
 import type { Dayjs } from 'dayjs';
-import { Modal, Select } from "antd"
-import { EventsSelect } from "../../Atoms/EventsSelect";
+import { Modal } from 'antd';
+import { EventsSelect } from '../../Atoms/EventsSelect';
+import './EventModal.css';
 
 interface IProps {
     open: boolean;
@@ -28,7 +29,7 @@ export const EventModal = (props: IProps) => {
             onCancel={props.onCancel}
             onOk={handleSumbit}
         >
-            {`${props.date}`}
+            <div className="current-day">{`${props.date.format('YYYY-MM-DD')}`}</div>
             <EventsSelect onChange={handleChangeTags} />
         </Modal>
     )
