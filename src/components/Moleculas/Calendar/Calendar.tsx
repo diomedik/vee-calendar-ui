@@ -10,15 +10,11 @@ import { EventTag } from '../../Atoms/EventTag/EventTag';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_EVENTS } from '../../../graphql/event/event.query';
 import { CREATE_EVENT } from '../../../graphql/event/event.mutate';
+import { useEvents } from '../../../hooks/useEvents';
+import { IEvent } from '../../../interfaces/Event.interface';
 import './Calendar.css'
 
 dayjs.extend(dayLocaleData);
-
-type Tag = {
-    type: string;
-    startDate: string;
-    id: string;
-}
 
 export const Calendar = () => {
     const [currentDate, setCurrentDate] = React.useState<Dayjs>(dayjs);
@@ -30,7 +26,7 @@ export const Calendar = () => {
     const currentYear = dayjs().clone().year();
     const beginOfMonth = new Date(currentDate?.year(), currentDate?.month(), 1);
     const endOfMonth = new Date(currentDate?.year(), currentDate?.month() + 1, 0);
-    const {data, refetch} = useQuery(GET_EVENTS, {variables: {endDate: endOfMonth, startDate: beginOfMonth}});
+    const {data, refetch} = useEvents(endOfMonth, beginOfMonth)
 
     React.useEffect(() => {
         refetch()
@@ -56,7 +52,7 @@ export const Calendar = () => {
     }
 
     const fullCellRender = (date: Dayjs): JSX.Element => {
-        const tagsToRender = data?.events?.items.filter((tag: Tag) => 
+        const tagsToRender = data?.events?.items.filter((tag: IEvent) => 
             new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()
         );
 
@@ -64,7 +60,7 @@ export const Calendar = () => {
             <div className="cell">
                 <div className="day">{date.date()}</div>
                 <div className="tags">
-                    {tagsToRender?.map((tag: Tag, index: number) => {
+                    {tagsToRender?.map((tag: IEvent, index: number) => {
                         if(new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()) {
                             return (
                                 <EventTag onlyIcon={tagsToRender.length > 1} key={index} value={tag.type} label={tag.type} />

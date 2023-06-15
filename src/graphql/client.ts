@@ -3,8 +3,6 @@ import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { message } from "antd";
 
-console.log(process.env)
-
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_API,
 });

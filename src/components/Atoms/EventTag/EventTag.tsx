@@ -30,8 +30,6 @@ export const EventTag = (props: IProps): JSX.Element => {
         event.preventDefault();
         event.stopPropagation();
     };
-
-    console.log(props.onlyIcon)
     
     return (
         <Tag
