@@ -6,7 +6,7 @@
 .App {
   padding: 0px 250px 0 250px;
   text-align: center;
-  background: url(./icons/Thumbnail.png);
+  background: url(./icons/bg.png);
   background-position: center center;
      background-repeat: no-repeat; 
      -webkit-background-size: cover;
