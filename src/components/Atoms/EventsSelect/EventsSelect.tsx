@@ -13,7 +13,7 @@ type Option = {
     children?: ReactNode[];
 }
 
-const options = [ {value: 'facebook'}, {value: 'instagram'} ];
+const options = [{ value: 'facebook' }, { value: 'instagram' }];
 
 export const EventsSelect = (props: IProps) => {
     const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
@@ -30,7 +30,7 @@ export const EventsSelect = (props: IProps) => {
     )
 
     return (
-        <Select 
+        <Select
             mode="tags"
             className="events-select"
             value={selectedTag}

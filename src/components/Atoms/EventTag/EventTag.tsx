@@ -21,16 +21,16 @@ const renderIcon = (value: string): JSX.Element | null => {
     if (value === EventTypes.FACEBOOK) {
         return <FacebookIcon />
     }
-    
+
     return null;
-} 
+}
 
 export const EventTag = (props: IProps): JSX.Element => {
     const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
         event.preventDefault();
         event.stopPropagation();
     };
-    
+
     return (
         <Tag
             className={`tag ${props.value.toLowerCase()} ${props.onlyIcon && 'only-icon'}`}

@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import dayLocaleData from 'dayjs/plugin/localeData';
 import { RRule } from 'rrule'
-import { Calendar as CalendarUI, Row, Col} from 'antd';
+import { Calendar as CalendarUI, Row, Col } from 'antd';
 import { SelectWithArrows } from '../../Atoms/SelectWithArrows';
 import { EventModal } from '../../Moleculas/EventModal';
 import { EventTag } from '../../Atoms/EventTag/EventTag';
@@ -26,13 +26,13 @@ export const Calendar = () => {
     const currentYear = dayjs().clone().year();
     const beginOfMonth = new Date(currentDate?.year(), currentDate?.month(), 1);
     const endOfMonth = new Date(currentDate?.year(), currentDate?.month() + 1, 0);
-    const {data, refetch} = useEvents(endOfMonth, beginOfMonth)
+    const { data, refetch } = useEvents(endOfMonth, beginOfMonth)
 
     React.useEffect(() => {
         refetch()
     }, [currentDate])
 
-    const handleCellClick = (date:  Dayjs): void => {
+    const handleCellClick = (date: Dayjs): void => {
         setSelectedDate(date);
         setShowModal(true);
     };
@@ -46,13 +46,13 @@ export const Calendar = () => {
         });
 
         createEvent({
-            variables: { type: tag, rrule: rule.toString()}
+            variables: { type: tag, rrule: rule.toString() }
         })
         setShowModal(false);
     }
 
     const fullCellRender = (date: Dayjs): JSX.Element => {
-        const tagsToRender = data?.events?.items.filter((tag: IEvent) => 
+        const tagsToRender = data?.events?.items.filter((tag: IEvent) =>
             new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()
         );
 
@@ -61,7 +61,7 @@ export const Calendar = () => {
                 <div className="day">{date.date()}</div>
                 <div className="tags">
                     {tagsToRender?.map((tag: IEvent, index: number) => {
-                        if(new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()) {
+                        if (new Date(tag.startDate).toDateString() === new Date(date.toISOString()).toDateString()) {
                             return (
                                 <EventTag onlyIcon={tagsToRender.length > 1} key={index} value={tag.type} label={tag.type} />
                             )
@@ -72,34 +72,34 @@ export const Calendar = () => {
         )
     }
 
-    const renderHeader = ({ value, onChange }: {value: Dayjs, onChange(date: Dayjs): void}): JSX.Element => {
+    const renderHeader = ({ value, onChange }: { value: Dayjs, onChange(date: Dayjs): void }): JSX.Element => {
         const current = value.clone();
         const localeData = value.localeData();
         const month = value.month();
         const startYear = currentYear - 10;
 
-    
-        const monthOptions = Array.from({length: 12}, (_, index) => ({
+
+        const monthOptions = Array.from({ length: 12 }, (_, index) => ({
             label: localeData.months(current.month(index)),
             value: index,
         }));
-          
-        const yearOptions = Array.from({length: 20}, (_, index) => {
+
+        const yearOptions = Array.from({ length: 20 }, (_, index) => {
             const calcYear = startYear + index;
-            
+
             return {
                 label: calcYear,
                 value: calcYear,
             }
         })
-    
+
 
         return (
             <div>
                 <Row className="table-header" justify="center">
                     <Col>
                         <SelectWithArrows
-                            size="large" 
+                            size="large"
                             value={month}
                             onChange={(passedValue) => {
                                 const now = value.clone().month(passedValue);
@@ -113,7 +113,7 @@ export const Calendar = () => {
                         />
                     </Col>
                     <Col>
-                        <SelectWithArrows 
+                        <SelectWithArrows
                             size="large"
                             value={value.clone().year()}
                             defaultValue={current.year()}
@@ -134,24 +134,24 @@ export const Calendar = () => {
 
     return (
         <>
-            <CalendarUI 
+            <CalendarUI
                 className="calendar"
-                headerRender={renderHeader} 
+                headerRender={renderHeader}
                 fullCellRender={fullCellRender}
                 onChange={(value) => setCurrentDate(value.clone())}
                 onSelect={(date, { source }) => {
                     if (source === 'date') {
-                      handleCellClick(date)
+                        handleCellClick(date)
                     }
                 }}
             />
-            <EventModal 
+            <EventModal
                 open={showModal}
                 date={selectedDate}
-                onCancel={() => setShowModal(false)} 
-                onSumbit={handleSubmit} 
+                onCancel={() => setShowModal(false)}
+                onSumbit={handleSubmit}
             />
         </>
-        
+
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, SelectProps, Dropdown } from 'antd';
+import { Select, SelectProps } from 'antd';
 import './SelectWithArrows.css'
 
 type Option = {
@@ -21,7 +21,7 @@ export const SelectWithArrows = (props: IProps & SelectProps): JSX.Element => {
     const handleUpArrow = () => {
         if (index < props.options.length - 1) {
             setIndex((prevState) => prevState + 1)
-        } else { 
+        } else {
             setIndex(0)
         }
     };
@@ -38,7 +38,7 @@ export const SelectWithArrows = (props: IProps & SelectProps): JSX.Element => {
         <div>
             <Select
                 className="select-with-arrows"
-                {...props} 
+                {...props}
             />
             <button className='arrow' onClick={handleUpArrow} />
             <button className='arrow arrow-down' onClick={handleDownArrow} />
