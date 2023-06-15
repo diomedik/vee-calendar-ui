@@ -48,7 +48,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ### Tech stack
  - Antd - Library which provides a lot of UI components, which very scalable and flexible. 
  - Dayjs - A better way to work with Date in JS. This library provides a lot of methods to work with Date and also lighweight.
- - Apollo - 
+ - Apollo - This library provide to us a lot of methods to work with GraphQl queries
  - RRule - a library to work with iCalendar standard
 
  ### Folder structure 
@@ -69,6 +69,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
  under the hood.
 
  --- Apollo
+ The main reasen why we use this lib instead of Redux, because Appolo provides a lot of methods to work GraphQL queries. In case
+ if we use Redux, we need some additional lib to parse GraphQL queries, for example react-query, but Apollo has it under the hood.
+ Also, Apollo provides to us state manager and cache manager, we can store and manupulate data without any additional libs.
 
  --- RRule
  RRule.js is a valuable tool when working with scheduling and event management systems that involve recurring patterns. It provides a convenient and reliable way to handle various types of recurring events, such as daily, weekly, monthly, or yearly occurrences, as well as more complex patterns. RRule.js simplifies the implementation of recurrence rules, saving development time and ensuring accurate and consistent scheduling functionality.
