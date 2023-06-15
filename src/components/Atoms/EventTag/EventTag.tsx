@@ -26,6 +26,7 @@ const renderIcon = (value: string): JSX.Element | null => {
 }
 
 export const EventTag = (props: IProps): JSX.Element => {
+    const { onlyIcon, value, closable, label, onClose } = props;
     const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -33,14 +34,14 @@ export const EventTag = (props: IProps): JSX.Element => {
 
     return (
         <Tag
-            className={`tag ${props.value.toLowerCase()} ${props.onlyIcon && 'only-icon'}`}
+            className={`tag ${value.toLowerCase()} ${onlyIcon && 'only-icon'}`}
             onMouseDown={onPreventMouseDown}
-            closable={props.closable}
-            onClose={props.onClose}
+            closable={closable}
+            onClose={onClose}
             style={{ marginRight: 3 }}
         >
-            {renderIcon(props.value)}
-            {!props.onlyIcon && <span>{props.label}</span>}
+            {renderIcon(value)}
+            {!onlyIcon && <span>{label}</span>}
         </Tag>
     )
 }

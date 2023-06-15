@@ -16,12 +16,13 @@ type Option = {
 const options = [{ value: 'facebook' }, { value: 'instagram' }];
 
 export const EventsSelect = (props: IProps) => {
+    const { onChange } = props;
     const [selectedTag, setSelectedTag] = React.useState<string[]>([]);
 
     const handleChange = (value: string[], options: Option | Option[]): void => {
         if (Array.isArray(options) && (options?.length === 0 || options?.length === 1)) {
             setSelectedTag(value)
-            props.onChange(value);
+            onChange(value);
         }
 
     }

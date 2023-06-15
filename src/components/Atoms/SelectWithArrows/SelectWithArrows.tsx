@@ -12,14 +12,15 @@ interface IProps {
 }
 
 export const SelectWithArrows = (props: IProps & SelectProps): JSX.Element => {
-    const [index, setIndex] = React.useState<number>(() => props.options?.findIndex((option) => option.value === props.defaultValue) || 0);
+    const { options, onChange } = props;
+    const [index, setIndex] = React.useState<number>(() => options?.findIndex((option) => option.value === props.defaultValue) || 0);
 
     React.useEffect(() => {
-        props.onChange(props.options[index].value);
+        onChange(props.options[index].value);
     }, [index]);
 
     const handleUpArrow = () => {
-        if (index < props.options.length - 1) {
+        if (index < options.length - 1) {
             setIndex((prevState) => prevState + 1)
         } else {
             setIndex(0)
@@ -30,7 +31,7 @@ export const SelectWithArrows = (props: IProps & SelectProps): JSX.Element => {
         if (index !== 0) {
             setIndex((prevState) => prevState - 1)
         } else {
-            setIndex(props.options.length - 1)
+            setIndex(options.length - 1)
         }
     };
 

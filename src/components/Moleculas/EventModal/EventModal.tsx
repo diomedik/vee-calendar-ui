@@ -12,6 +12,7 @@ interface IProps {
 }
 
 export const EventModal = (props: IProps) => {
+    const { open, onCancel, onSumbit, date } = props;
     const [tags, setTags] = React.useState<string[]>([]);
 
     const handleChangeTags = (tags: string[]) => {
@@ -19,17 +20,17 @@ export const EventModal = (props: IProps) => {
     }
 
     const handleSumbit = () => {
-        props.onSumbit(tags[0].toUpperCase());
+        onSumbit(tags[0].toUpperCase());
     }
 
     return (
         <Modal
             title="Event modal"
-            open={props.open}
-            onCancel={props.onCancel}
+            open={open}
+            onCancel={onCancel}
             onOk={handleSumbit}
         >
-            <div className="current-day">{`${props.date.format('YYYY-MM-DD')}`}</div>
+            <div className="current-day">{`${date.format('YYYY-MM-DD')}`}</div>
             <EventsSelect onChange={handleChangeTags} />
         </Modal>
     )
